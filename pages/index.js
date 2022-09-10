@@ -1,7 +1,4 @@
-import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 
 import PageLayout from '../components/PageLayout'
 
@@ -30,7 +27,28 @@ export default function Home({ articles }) {
 
 const API_KEY = process.env.API_KEY
 
-export async function getServerSideProps() {
+// Llamada a API renderizando info desde el servidor
+// Se utiliza para datos que necesitas que sean MUY live
+// ó tiene demasiados datos dinámicos
+// N request --> se ejecuta N veces
+
+// export async function getServerSideProps() {
+//   const response = await fetch(
+//     `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${API_KEY}`
+//   )
+//   const { articles } = await response.json()
+//   return {
+//     props: {
+//       articles,
+//     },
+//   }
+// }
+
+// Nos permite crear páginas estáticas en la app
+// Prerenderiza la página entera con la info que creamos aquí
+// N requets --> se ejecuta 1 vez en build time (o para refrescar la página)
+
+export async function getStaticProps() {
   const response = await fetch(
     `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${API_KEY}`
   )
