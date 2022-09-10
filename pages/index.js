@@ -12,7 +12,10 @@ export default function Home({ articles }) {
         {articles.length > 0 &&
           articles.map((article, index) => (
             <article key={index}>
-              <img
+              <Image
+                width={450}
+                height={300}
+                layout="responsive"
                 src={article.urlToImage}
                 alt={`Image for the article ${article.title}`}
               />
