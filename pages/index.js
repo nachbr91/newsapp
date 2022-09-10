@@ -28,9 +28,11 @@ export default function Home({ articles }) {
   )
 }
 
+const API_KEY = process.env.API_KEY
+
 export async function getServerSideProps() {
   const response = await fetch(
-    'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=b5dbd67693af4df080df4680eb8b164b'
+    `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${API_KEY}`
   )
   const { articles } = await response.json()
   return {
